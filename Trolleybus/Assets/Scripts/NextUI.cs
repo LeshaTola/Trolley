@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -20,8 +21,23 @@ public class NextUI : MonoBehaviour
 		});
 	}
 
-	public void ShowResult(int choice)
+	public async void ShowResult(bool choice)
 	{
+		List<Choice> choices = await NetworkManager.Instance.GetChoicesAsync();
+
+		int choicesLikeYou = 0;
+		foreach (var choiceVariant in choices)
+		{
+			if (choiceVariant.Pull == choice)
+			{
+				choicesLikeYou++;
+			}
+		}
+
+		float percentage = choicesLikeYou / choices.Count;
+		percentImage.fillAmount = percentage;
+
 		transform.DOMove(resultTransform.position, showTime);
+		resultText.text = $"{percentage * 100}% of people think like you, other {(1 - percentage) * 100}% don't ({choices.Count} votes)";
 	}
 }
