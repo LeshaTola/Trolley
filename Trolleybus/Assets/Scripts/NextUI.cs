@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using YG;
 
 public class NextUI : MonoBehaviour
 {
+	[Header("UI")]
 	[SerializeField] private Text resultText;
 	[SerializeField] private Image percentImage;
 	[SerializeField] private Button NextButton;
 
+	[Header("Animation")]
 	[SerializeField] private Transform resultTransform;
 	[SerializeField] private float showTime;
+
+	[Header("Other")]
+	[SerializeField] private GameManager gameManager;
 
 	private void Awake()
 	{
@@ -25,19 +31,40 @@ public class NextUI : MonoBehaviour
 	{
 		List<Choice> choices = await NetworkManager.Instance.GetChoicesAsync();
 
-		int choicesLikeYou = 0;
-		foreach (var choiceVariant in choices)
+		if (choices != null || choices.Count > 0)
 		{
-			if (choiceVariant.Pull == choice)
+			int choicesLikeYou = 0;
+			foreach (var choiceVariant in choices)
 			{
-				choicesLikeYou++;
+				if (choiceVariant.Pulled == choice)
+				{
+					choicesLikeYou++;
+				}
 			}
+
+			float percentage = (float)choicesLikeYou / choices.Count;
+			percentImage.fillAmount = percentage;
+
+			transform.DOMove(resultTransform.position, showTime);
+
+			resultText.text = $"{Mathf.Round(percentage * 100)}% of people agree with you, {Mathf.Round((1 - percentage) * 100)}% disagree ({choices.Count} votes)";
+		}
+		else
+		{
+			float maxPercentage = 1f;
+			resultText.text = "You are first, who vote";
+			percentImage.fillAmount = maxPercentage;
 		}
 
-		float percentage = choicesLikeYou / choices.Count;
-		percentImage.fillAmount = percentage;
+		var resultTranslator = resultText.GetComponent<LanguageYG>();
+		resultTranslator.Clear();
+		resultTranslator.Translate(resultTranslator.countLang);
+		resultTranslator.SwitchLanguage();
 
-		transform.DOMove(resultTransform.position, showTime);
-		resultText.text = $"{percentage * 100}% of people think like you, other {(1 - percentage) * 100}% don't ({choices.Count} votes)";
+		await NetworkManager.Instance.AddChoiceAsync(new Choice
+		{
+			Level = gameManager.Level,
+			Pulled = choice
+		});
 	}
 }

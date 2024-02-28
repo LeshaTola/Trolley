@@ -101,5 +101,5 @@ public class Choice
 {
 	public int Id;
 	public int Level;
-	public bool Pull;
+	public bool Pulled;
 }

@@ -684,7 +684,7 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Standalone: YG_PLUGIN_YANDEX_GAME;DREAMTECK_SPLINES
+    Standalone: YG_PLUGIN_YANDEX_GAME;DREAMTECK_SPLINES;YG_NEWTONSOFT_FOR_AUTOLOCALIZATION
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}

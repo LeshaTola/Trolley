@@ -23,12 +23,9 @@ app.MapGet("/Choices", (ApplicationContext db) => db.Choices.ToList());
 app.MapGet("/Choices/{level}", (ApplicationContext db, int level) => db.Choices.Where(C => C.Level.Equals(level)).ToList());
 app.MapPost("/Choices", (ApplicationContext db, Choice choice) =>
 {
-	//choice.Id = Guid.NewGuid();
 	db.Choices.Add(choice);
 	db.SaveChanges();
 	return choice;
 });
-
-//app.UseWelcomePage();
 
 app.Run();
