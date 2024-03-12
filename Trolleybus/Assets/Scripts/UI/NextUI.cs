@@ -29,6 +29,12 @@ public class NextUI : MonoBehaviour
 
 	public async void ShowResult(bool choice)
 	{
+		await NetworkManager.Instance.AddChoiceAsync(new Choice
+		{
+			Level = gameManager.Level,
+			Pulled = choice
+		});
+
 		List<Choice> choices = await NetworkManager.Instance.GetChoicesAsync();
 
 		if (choices != null || choices.Count > 0)
@@ -60,11 +66,5 @@ public class NextUI : MonoBehaviour
 		resultTranslator.Clear();
 		resultTranslator.Translate(resultTranslator.countLang);
 		resultTranslator.SwitchLanguage();
-
-		await NetworkManager.Instance.AddChoiceAsync(new Choice
-		{
-			Level = gameManager.Level,
-			Pulled = choice
-		});
 	}
 }

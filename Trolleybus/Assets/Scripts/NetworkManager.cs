@@ -15,7 +15,7 @@ public enum HttpMethods
 
 public class NetworkManager : MonoBehaviour
 {
-	private const string URI = "http://localhost:5000";
+	private const string URI = "http://185.6.25.154:5000";
 
 	public static NetworkManager Instance { get; private set; }
 
