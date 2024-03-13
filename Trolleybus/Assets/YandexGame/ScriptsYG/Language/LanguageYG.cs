@@ -293,7 +293,7 @@ namespace YG
 			}
 		}
 
-#if UNITY_EDITOR
+
 		[HideInInspector] public float textHeight = 20f;
 		[HideInInspector] public string processTranslateLabel;
 		[HideInInspector] public bool componentTextField;
@@ -467,6 +467,6 @@ namespace YG
 			processTranslateLabel = "";
 			countLang = LangMethods.LangArr(infoYG).Length;
 		}
-#endif
+
 	}
 }

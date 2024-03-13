@@ -935,12 +935,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f751a60d1449bc2418bf8de093a74743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Level>k__BackingField: 1
-  LevelName: "\u041E\u0434\u0438\u043D \u0447\u0435\u043B\u043E\u0432\u0435\u043A"
+  <Level>k__BackingField: 2
+  LevelName: "\u0412\u0441\u0435 \u0440\u0435\u0448\u0438\u0442 \u0438\u0441\u043A\u0443\u0441\u0441\u0442\u0432\u043E"
   History: "\u041F\u0435\u0440\u0435\u0434 \u0432\u0430\u043C\u0438 \u0441\u0442\u043E\u0438\u0442
     \u0432\u044B\u0431\u043E\u0440 \u043C\u0435\u0436\u0434\u0443 \u0443\u0431\u0438\u0439\u0441\u0442\u0432\u043E\u043C
-    4\u0435\u0445 \u0447\u0435\u043B\u043E\u0432\u0435\u043A \u0438 \u0442\u043E\u043B\u044C\u043A\u043E
-    \u043E\u0434\u043D\u043E\u0433\u043E, \u0447\u0442\u043E \u0432\u044B \u0432\u044B\u0431\u0438\u0440\u0435\u0442\u0435"
+    4\u0435\u0445 \u0447\u0435\u043B\u043E\u0432\u0435\u043A \u0438 \u0432\u0435\u043B\u0438\u0447\u0430\u0439\u0448\u0438\u043F
+    \u043F\u0440\u043E\u0438\u0437\u0432\u0438\u0434\u0435\u043D\u0438\u0435 \u0414\u0430\u0432\u0438\u043D\u0447\u0438:
+    \"\u041C\u043E\u043D\u0430 \u041B\u0438\u0437\u0430\""
 --- !u!1 &198059493
 GameObject:
   m_ObjectHideFlags: 0
@@ -3609,7 +3610,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: ac4879256d2419244b16df4d3fe44d67, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 85c65b584072acd4c89014271bd7045c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

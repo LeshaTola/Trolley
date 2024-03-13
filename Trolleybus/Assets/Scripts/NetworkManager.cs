@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ public enum HttpMethods
 
 public class NetworkManager : MonoBehaviour
 {
-	private const string URI = "http://185.6.25.154:5000";
+	private const string URI = "http://10.21.80.157:5000";
 
 	public static NetworkManager Instance { get; private set; }
 
@@ -31,7 +32,14 @@ public class NetworkManager : MonoBehaviour
 
 		using (var webRequest = GetUnityWebRequest(URL, HttpMethods.POST, json))
 		{
-			await SendRequestAsync(webRequest);
+			try
+			{
+				await SendRequestAsync(webRequest);
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
 		}
 	}
 
@@ -53,11 +61,18 @@ public class NetworkManager : MonoBehaviour
 		string URL = $"{URI}/Choices";
 		using (var webRequest = GetUnityWebRequest(URL, HttpMethods.GET))
 		{
-			await SendRequestAsync(webRequest);
+			try
+			{
+				await SendRequestAsync(webRequest);
 
-			var json = webRequest.downloadHandler.text;
-			var choices = JsonConvert.DeserializeObject<List<Choice>>(json);
-			return choices;
+				var json = webRequest.downloadHandler.text;
+				var choices = JsonConvert.DeserializeObject<List<Choice>>(json);
+				return choices;
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
 		}
 	}
 
@@ -76,7 +91,18 @@ public class NetworkManager : MonoBehaviour
 		}
 		else
 		{
-			Debug.LogError("Error: " + webRequest.error);
+			if (webRequest.result == UnityWebRequest.Result.ConnectionError)
+			{
+				throw new Exception("Network Error: " + webRequest.error);
+			}
+			else if (webRequest.result == UnityWebRequest.Result.ProtocolError)
+			{
+				throw new Exception("HTTP Error: " + webRequest.error);
+			}
+			else
+			{
+				throw new Exception("HTTP Error: " + webRequest.error);
+			}
 		}
 	}
 
@@ -92,6 +118,8 @@ public class NetworkManager : MonoBehaviour
 
 		webRequest.downloadHandler = new DownloadHandlerBuffer();
 		webRequest.SetRequestHeader("Content-Type", "application/json");
+
+		webRequest.timeout = 5;
 
 		return webRequest;
 	}
